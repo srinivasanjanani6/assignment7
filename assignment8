@@ -1,0 +1,52 @@
+from github import Github
+
+# GitHub credentials
+username = "your_username"
+password = "your_password_or_personal_access_token"
+
+# Repository information
+repo_name = "sample-website"
+file_name = "index.html"
+file_content = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>HAI THIS IS JANANI SAMPLE WEBSITE</h1>
+</body>
+</html>
+'''
+
+# Create GitHub instance
+g = Github(username, password)
+
+# Create a new repository
+user = g.get_user()
+repo = user.create_repo(repo_name)
+print("Repository created successfully.")
+
+# Create a new file in the repository
+repo.create_file(file_name, "Initial commit", file_content)
+print("HTML file created successfully.")
+
+# Enable GitHub Pages for the repository
+repo.edit(has_wiki=False, has_issues=False, has_projects=False)
+repo.enable_pages()
+print("GitHub Pages enabled.")
+
+# Print the URL of the website
+print(f"Your website is now accessible at: https://{username}.github.io/{repo_name}")
